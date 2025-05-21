@@ -1,0 +1,72 @@
+# common config
+car_brand: yc200 # 设置车辆型号 , 目前有yc200,yc800
+data_suffix: .bag # 设置数据包的后缀
+save_pcd_dims: 4 # 设置保存点云的维度
+
+# record2bag config
+min_bag_duration: 20 # 设置bag文件最小时间长度,单位为秒
+
+force_rewrite: false # 设置是否强制覆盖已有的数据
+worker_num: 6 # 设置进程数
+
+# 设置原始bug包的存储路径
+raw_bug_folder_root: ~/repo_ws_dev/bug/lidar
+
+# 设置用于record2bag所需要的docker container name
+cyber_container_name: yczx_dev
+
+camera_topic_channel_dict:
+  /cam_front_fisheye/compressed: cam-front-fisheye
+  /cam_left_fisheye/compressed: cam-left-fisheye
+  /cam_right_fisheye/compressed: cam-right-fisheye
+  /cam_back_fisheye/compressed: cam-back-fisheye
+  # /cam_front_left/compressed: cam-front-left
+  # /cam_front/compressed: cam-front
+
+lidar_topic_channel_dict:
+  /lidar_points/top: lidar-top
+  /lidar_points/front: lidar-front
+  /lidar_points/left: lidar-left
+  /lidar_points/right: lidar-right
+  /lidar_points/back: lidar-back
+
+pose_topic_channel_dict:
+  /localization_result: ego-pose
+
+# 设置是否使用标定参数对点云进行变换用于后续融合lidar点云,默认为true
+# TODO : 后续需要修改称结合 frame_id 来判断是否需要进行变换
+transform_lidar_flag: true
+
+# 设置是否融合lidar点云
+# - 如果为true，则会将上述所有lidar点云融合为一帧
+# - 如果为false，则只会保存 main_topic 所对应的topic
+lidar_fusion_flag: true
+
+# 设置时间同步基准topic
+main_topic: /lidar_points/top
+main_channel: lidar-fusion
+
+# 设置时间同步相较于基准topic的最大时间差(ms)
+time_diff_threshold: 50
+
+# 设置采样间隔(frame)
+sample_interval: 5
+
+# 设置是否保存sweep数据
+# Note : 全部保存速度较慢，并且要有足够的存储空间
+save_sweep_data_flag: false
+
+# 导出格式 目前支持 xtreme1, sus
+export_format: sus
+# 导出的soft_link 目录
+export_soft_link_target_path: ~/App/sustechpoints/data/
+
+# 导入格式 目前支持 xtreme1, sus
+load_format: sus
+
+############################################
+# Merge config
+############################################
+merge_source_list:
+  - /home/dataset/roscenes_ws_lidar_yc200
+  - /home/dataset/roscenes_ws_lidar_yc800

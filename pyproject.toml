@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+dependencies = [
+    "numpy",
+    "rich",
+    "nuscenes-devkit",
+    "pyyaml",
+    "wind-pypcd",
+    "opencv-python",
+    "numpy-quaternion==2023.0.3",
+]
+name = "rosbag2nuscenes"
+version = "0.0.1"
+description = "ros bag to nuscenes"
+authors = [{ name = "windzu", email = "windzu1@gmail.com" }]
+readme = "README.md"
+license = { text = "MIT" }
+keywords = ["nuscenes"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+]
+requires-python = ">=3.6,<3.9"
+
+[project.scripts]
+rosbag2nuscenes = "roscenes.main:main"
+
+[tool.setuptools]
+include-package-data = true
